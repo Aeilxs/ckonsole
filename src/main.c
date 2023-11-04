@@ -7,29 +7,32 @@
 void test_logger();
 void test_ansicode();
 void test_progressbar();
-void clear_line() {
-  printf("\033[K"); // delete line
-  fflush(stdout);
-}
+
 int main() {
+  test_logger();
+  test_ansicode();
   test_progressbar();
-  // test_logger();
-  // test_ansicode();
   return 0;
 }
 
 void test_progressbar() {
+  printf(BOLD ULINE "\n===== PROGRESS BAR TEST SUITE =====\n\n" RST);
+
   log_info("Doing a very important task");
-  for (int i = 0; i < 100; i++) {
-    usleep(20000);
+  for (int i = 1; i <= 100; i++) {
     progress_bar(i);
+    usleep(20000);
   }
-  // clear_line();
   log_success("it worked well !");
+
+  printf(ULINE "\nIt should show an error if invalid value for progress:\n\n" RST);
+  progress_bar(-1);
+  progress_bar(101);
 }
 
 void test_logger() {
-  printf("\n===== LOGGER TEST SUITE =====\n");
+  printf(BOLD ULINE "\n===== LOGGER TEST SUITE =====\n\n" RST);
+
   log_debug("Some debug message");
   log_info("Some info message");
   log_warn("Some warning message :s");
@@ -42,7 +45,7 @@ void test_logger() {
 }
 
 void test_ansicode() {
-  printf("\n===== ANSI CODE TEST SUITE =====\n");
+  printf(BOLD ULINE "\n===== ANSI CODE TEST SUITE =====\n\n" RST);
 
   printf(BBLU "   " RST BWHT "   " RST BRED "   " RST "\n");
   printf(BLU "blue " ULINE "uline blue\n" RST);

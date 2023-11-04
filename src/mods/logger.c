@@ -50,25 +50,30 @@ void log_success(const char *msg, ...) {
 }
 
 void progress_bar(int percentage) {
-  if (percentage < 0) {
-    percentage = 0;
-  } else if (percentage > 100) {
-    percentage = 100;
+  if (percentage < 0 || percentage > 100) {
+    // clang-format off
+    const char *msg = "Progress percentage " BOLD "MUST " RST "be in the interval [0;100]";
+    log_error("%s value: %d", msg, percentage);
+    // clang-format on
+    return;
   }
 
-  printf("[");
+  printf(BOLD "[");
   int chars_to_print = (PROGRESS_BAR_LENGTH * percentage) / 100;
+
   for (int i = 0; i < PROGRESS_BAR_LENGTH; i++) {
-    if (i < chars_to_print) {
-      printf("=");
-    } else {
-      printf(" ");
+    printf("%s", i <= chars_to_print ? RST "#" BOLD : " ");
+    if (i == chars_to_print) {
+      printf(">");
     }
   }
-  printf("] %d%%\r", percentage);
-  printf("\033[K");
+
+  printf("] [%d/100]\r" RST, percentage);
   fflush(stdout);
-  usleep(1000);
+
+  if (percentage == 100) {
+    printf("\n");
+  }
 }
 
 static const char *_get_lvl_str(_LogLevel lvl) {

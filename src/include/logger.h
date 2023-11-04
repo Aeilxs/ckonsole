@@ -31,6 +31,10 @@ void log_warn(const char *msg, ...);
 void log_error(const char *msg, ...);
 void log_success(const char *msg, ...);
 
+/**
+ * Print a progress bar
+ * @param percentage must be in interval [0;100]
+ */
 void progress_bar(int percentage);
 
 #endif // CKONSOLE_LOGGER_H
