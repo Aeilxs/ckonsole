@@ -34,7 +34,8 @@ void log_success(const char *msg, ...);
 /**
  * Print a progress bar
  * @param percentage must be in interval [0;100]
+ * @param title ex: downloading, processing...
  */
-void progress_bar(int percentage);
+void progress_bar(int percentage, const char *title);
 
 #endif // CKONSOLE_LOGGER_H

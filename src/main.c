@@ -20,14 +20,14 @@ void test_progressbar() {
 
   log_info("Doing a very important task");
   for (int i = 1; i <= 100; i++) {
-    progress_bar(i);
+    progress_bar(i, "processing");
     usleep(20000);
   }
   log_success("it worked well !");
 
   printf(ULINE "\nIt should show an error if invalid value for progress:\n\n" RST);
-  progress_bar(-1);
-  progress_bar(101);
+  progress_bar(-1, "");
+  progress_bar(101, "");
 }
 
 void test_logger() {

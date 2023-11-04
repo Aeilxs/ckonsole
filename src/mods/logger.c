@@ -49,7 +49,7 @@ void log_success(const char *msg, ...) {
   va_end(args);
 }
 
-void progress_bar(int percentage) {
+void progress_bar(int percentage, const char *title) {
   if (percentage < 0 || percentage > 100) {
     // clang-format off
     const char *msg = "Progress percentage " BOLD "MUST " RST "be in the interval [0;100]";
@@ -68,7 +68,7 @@ void progress_bar(int percentage) {
     }
   }
 
-  printf("] [%d/100]\r" RST, percentage);
+  printf("] %s [%d/100]\r" RST, title, percentage);
   fflush(stdout);
 
   if (percentage == 100) {
