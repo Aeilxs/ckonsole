@@ -1,15 +1,31 @@
 #include <stdio.h>
+#include <unistd.h>
 
 #include "ansi_code.h"
 #include "logger.h"
 
 void test_logger();
 void test_ansicode();
-
+void test_progressbar();
+void clear_line() {
+  printf("\033[K"); // delete line
+  fflush(stdout);
+}
 int main() {
-  test_logger();
-  test_ansicode();
+  test_progressbar();
+  // test_logger();
+  // test_ansicode();
   return 0;
+}
+
+void test_progressbar() {
+  log_info("Doing a very important task");
+  for (int i = 0; i < 100; i++) {
+    usleep(20000);
+    progress_bar(i);
+  }
+  // clear_line();
+  log_success("it worked well !");
 }
 
 void test_logger() {
