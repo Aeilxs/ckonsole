@@ -3,6 +3,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
+#include <unistd.h>
 
 static void _log_generic(_LogLevel lvl, const char *msg, va_list args) {
   const char *level_str = _get_lvl_str(lvl);
@@ -46,6 +47,33 @@ void log_success(const char *msg, ...) {
   va_start(args, msg);
   _log_generic(LVL_SUCCESS, msg, args);
   va_end(args);
+}
+
+void progress_bar(int percentage) {
+  if (percentage < 0 || percentage > 100) {
+    // clang-format off
+    const char *msg = "Progress percentage " BOLD "MUST " RST "be in the interval [0;100]";
+    log_error("%s value: %d", msg, percentage);
+    // clang-format on
+    return;
+  }
+
+  printf(BOLD "[");
+  int chars_to_print = (PROGRESS_BAR_LENGTH * percentage) / 100;
+
+  for (int i = 0; i < PROGRESS_BAR_LENGTH; i++) {
+    printf("%s", i <= chars_to_print ? RST "#" BOLD : " ");
+    if (i == chars_to_print) {
+      printf(">");
+    }
+  }
+
+  printf("] [%d/100]\r" RST, percentage);
+  fflush(stdout);
+
+  if (percentage == 100) {
+    printf("\n");
+  }
 }
 
 static const char *_get_lvl_str(_LogLevel lvl) {
