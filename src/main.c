@@ -47,6 +47,7 @@ void test_logger() {
 void test_ansicode() {
   printf(BOLD ULINE "\n===== ANSI CODE TEST SUITE =====\n\n" RST);
 
+  printf(ITLC "should be italic\n");
   printf(BBLU "   " RST BWHT "   " RST BRED "   " RST "\n");
   printf(BLU "blue " ULINE "uline blue\n" RST);
   printf(YLW "yellow " STRKTRGH "strktrgh yellow\n" RST);

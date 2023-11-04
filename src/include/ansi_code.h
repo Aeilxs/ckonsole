@@ -30,6 +30,7 @@
 // STYLES
 
 #define BOLD     "\x1B[1m"
+#define ITLC     "\x1B[3m"
 #define ULINE    "\x1B[4m"
 #define INVRS    "\x1B[7m"
 #define STRKTRGH "\x1B[9m"
