@@ -1,9 +1,9 @@
-#include "logger.h"
-#include "ansi_code.h"
-
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+
+#include "ansi_code.h"
+#include "logger.h"
 
 static void _log_generic(_LogLevel lvl, const char *msg, va_list args) {
   const char *level_str = _get_lvl_str(lvl);
